@@ -1,0 +1,14 @@
+.header-container {
+    padding: 0;
+    top: 0;
+    margin: 20px;
+    position: absolute;
+    font-size: 10px;
+  }
+  
+  .header-day-time {
+    color: gray;
+    font-size: 10px;
+    color: white;
+  }
+  

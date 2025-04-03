@@ -1,0 +1,24 @@
+.prevIcon{
+    border-radius: 50%;
+    font-size: 20px;
+    border: 3px solid white;
+    padding: 4px 5px;
+    color: white;
+    position: fixed;
+    left: 0;
+    margin-left: 20px;
+}
+
+.prevIcon:hover{
+    cursor: pointer
+}
+
+
+.print-dateTime {
+    position: fixed;  
+    right: 20px;
+    top: 0; 
+    padding: 10px; 
+    background-color: #5686e7;
+    color: white;
+}
