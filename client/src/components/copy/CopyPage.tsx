@@ -1,44 +1,55 @@
-import { useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
-import {
-  Copy,
-  Minus,
-  Plus,
-  Palette,
-  ArrowRight,
-  CreditCard,
-  Banknote,
-  Loader2,
-  CheckCircle2,
-  XCircle,
-} from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { KioskLayout } from "@/components/layout/KioskLayout";
-import { formatCurrency } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  createSession,
-  createPayment,
-  getPaymentStatus,
   confirmPayment,
+  createPayment,
+  createSession,
+  getPaymentStatus,
   type Payment,
 } from "@/lib/api";
+import { formatCurrency } from "@/lib/utils";
+import { motion } from "framer-motion";
+import {
+  ArrowRight,
+  Banknote,
+  CheckCircle2,
+  Copy,
+  CreditCard,
+  Loader2,
+  Minus,
+  Palette,
+  Plus,
+  XCircle,
+} from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 interface Props {
   onBack: () => void;
   onComplete: () => void;
 }
 
-type Step = "configure" | "payment-select" | "payment-qr" | "payment-confirmed" | "scanning" | "done" | "error";
+type Step =
+  | "configure"
+  | "payment-select"
+  | "payment-qr"
+  | "payment-confirmed"
+  | "scanning"
+  | "done"
+  | "error";
 
 export function CopyPage({ onBack, onComplete }: Props) {
   const [copies, setCopies] = useState(1);
-  const [colorMode, setColorMode] = useState<"GRAYSCALE" | "COLOR">("GRAYSCALE");
+  const [colorMode, setColorMode] = useState<"GRAYSCALE" | "COLOR">(
+    "GRAYSCALE",
+  );
   const [step, setStep] = useState<Step>("configure");
-  const [payment, setPayment] = useState<(Payment & { qrCodeDataUrl?: string }) | null>(null);
+  const [payment, setPayment] = useState<
+    (Payment & { qrCodeDataUrl?: string }) | null
+  >(null);
   const [sessionCode, setSessionCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-
+  //testing
   const pricePerPage = colorMode === "COLOR" ? 5.0 : 2.0;
   const totalPrice = copies * pricePerPage;
 
@@ -116,7 +127,13 @@ export function CopyPage({ onBack, onComplete }: Props) {
 
   return (
     <KioskLayout
-      onBack={step === "configure" ? onBack : step === "payment-select" ? () => setStep("configure") : undefined}
+      onBack={
+        step === "configure"
+          ? onBack
+          : step === "payment-select"
+            ? () => setStep("configure")
+            : undefined
+      }
       title="Photocopy"
     >
       <div className="flex items-center justify-center h-full p-8">
@@ -174,7 +191,9 @@ export function CopyPage({ onBack, onComplete }: Props) {
                   </label>
                   <div className="flex gap-3 mt-3">
                     <Button
-                      variant={colorMode === "GRAYSCALE" ? "default" : "outline"}
+                      variant={
+                        colorMode === "GRAYSCALE" ? "default" : "outline"
+                      }
                       className="flex-1"
                       onClick={() => setColorMode("GRAYSCALE")}
                     >
@@ -201,10 +220,7 @@ export function CopyPage({ onBack, onComplete }: Props) {
                   </div>
                 </div>
 
-                <Button
-                  size="lg"
-                  onClick={handleProceedToPayment}
-                >
+                <Button size="lg" onClick={handleProceedToPayment}>
                   Proceed to Payment
                   <ArrowRight className="w-5 h-5" />
                 </Button>
@@ -221,7 +237,9 @@ export function CopyPage({ onBack, onComplete }: Props) {
             className="flex flex-col items-center gap-8"
           >
             <div className="text-center">
-              <h2 className="text-3xl font-bold mb-2">Pay {formatCurrency(totalPrice)}</h2>
+              <h2 className="text-3xl font-bold mb-2">
+                Pay {formatCurrency(totalPrice)}
+              </h2>
               <p className="text-muted-foreground">
                 {copies} cop{copies !== 1 ? "ies" : "y"} &bull;{" "}
                 {colorMode === "COLOR" ? "Color" : "B&W"}
@@ -290,7 +308,9 @@ export function CopyPage({ onBack, onComplete }: Props) {
 
             <div className="flex items-center gap-2 text-muted-foreground">
               <Loader2 className="w-4 h-4 animate-spin" />
-              <span className="text-sm">Waiting for payment confirmation...</span>
+              <span className="text-sm">
+                Waiting for payment confirmation...
+              </span>
             </div>
 
             <p className="text-xs text-muted-foreground">
@@ -354,9 +374,7 @@ export function CopyPage({ onBack, onComplete }: Props) {
               <CheckCircle2 className="w-12 h-12 text-success" />
             </motion.div>
             <h2 className="text-3xl font-bold">Copy Complete!</h2>
-            <p className="text-muted-foreground">
-              Please collect your copies.
-            </p>
+            <p className="text-muted-foreground">Please collect your copies.</p>
             <p className="text-sm text-muted-foreground">
               Paid: {formatCurrency(totalPrice)}
             </p>
@@ -380,7 +398,9 @@ export function CopyPage({ onBack, onComplete }: Props) {
               <Button variant="outline" onClick={() => setStep("configure")}>
                 Go Back
               </Button>
-              <Button onClick={() => setStep("payment-select")}>Try Again</Button>
+              <Button onClick={() => setStep("payment-select")}>
+                Try Again
+              </Button>
             </div>
           </motion.div>
         )}
