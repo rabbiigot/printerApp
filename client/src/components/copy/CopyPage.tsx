@@ -49,7 +49,7 @@ export function CopyPage({ onBack, onComplete }: Props) {
   >(null);
   const [sessionCode, setSessionCode] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  //testing
+  //testing yow test
   const pricePerPage = colorMode === "COLOR" ? 5.0 : 2.0;
   const totalPrice = copies * pricePerPage;
 
