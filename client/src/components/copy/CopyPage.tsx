@@ -51,6 +51,7 @@ export function CopyPage({ onBack, onComplete }: Props) {
   const [error, setError] = useState<string | null>(null);
   //testing yow test
   //another test
+  //testing checking hash included
   const pricePerPage = colorMode === "COLOR" ? 5.0 : 2.0;
   const totalPrice = copies * pricePerPage;
 
