@@ -53,6 +53,7 @@ export function CopyPage({ onBack, onComplete }: Props) {
   //another test
   //testing checking hash included
   //another testing
+  //another testing
   const pricePerPage = colorMode === "COLOR" ? 5.0 : 2.0;
   const totalPrice = copies * pricePerPage;
 
